@@ -23,9 +23,11 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();
 
-// $app->withEloquent();
+$app->configure('graphql');
+
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -78,9 +80,14 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(Folklore\GraphQL\LumenServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
+$app->register(Jenssegers\Date\DateServiceProvider::class);
+
+// Facades
+class_alias(Jenssegers\Date\Date::class, 'Date');
 
 /*
 |--------------------------------------------------------------------------
